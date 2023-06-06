@@ -26,4 +26,4 @@ const stil = StyleSheet.create({
     }
 })
 
-export default Naslov
+export default Naslov;
