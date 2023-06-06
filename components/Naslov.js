@@ -22,7 +22,8 @@ const stil = StyleSheet.create({
     },
     naslov: {
         color: "black",
-        fontSize: 18
+        fontSize: 18,
+        fontFamily: 'open-sans'
     }
 })
 

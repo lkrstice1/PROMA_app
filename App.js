@@ -1,5 +1,7 @@
 import React, { useState }from 'react';
 import { View, StyleSheet } from 'react-native';
+import * as Font from 'expo-font'
+import AppLoading from 'expo-app-loading';
 import Naslov from './components/Naslov';
 import PocetniEkran from './screens/PocetniEkran';
 import EkranIgre from './screens/EkranIgre';
@@ -8,6 +10,24 @@ import KrajIgre from './screens/KrajIgre';
 export default function App() {
   const [brKorisnika, postaviBroj] = useState()
   const [brojRundi, postaviRunde] = useState(0)
+  const [podaciUcitani, postaviPodatke] = useState(false)
+
+  if(!podaciUcitani){
+    return(
+      <AppLoading
+        startAsync={dohvatiFont}
+        onFinish={() => postaviPodatke(true)}
+        onError={(err) => console.log(err)}
+      />
+    )
+  }
+
+  const dohvatiFont = () => {
+    return Font.loadAsync({
+      'open-sans': require('./assets/fonts/OpenSans-Italic-VariableFont_wdth,wght.ttf'),
+      'open-sans-bold': require('./assets/fonts/OpenSans-VariableFont_wdth,wght.ttf')
+    })
+  }
 
   const pocetakIgre = (broj) => {
     postaviBroj(broj)
