@@ -19,6 +19,19 @@ const stil = StyleSheet.create({
         shadowOpacity: 0.75,
         elevation: 7,
         borderRadius: 10
+    },
+    ekran: {
+        flex: 1,
+        padding: 10,
+        alignItems: 'center',
+        backgroundColor: '#f5edb0'
+    },
+    tipke: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginTop: 20,
+        width: 300,
+        maxWidth: '80%'
     }
 })
 
