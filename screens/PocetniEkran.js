@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Keyboard, View, StyleSheet, Text, TextInput, Button, TouchableWithoutFeedback } from "react-native";
+import { Keyboard, View, StyleSheet, Text, Button, TouchableWithoutFeedback, Alert } from "react-native";
 import Kartica from "../components/Kartica";
 import UnosBroja from "../components/UnosBroja";
+import BrojOkvir from "../components/BrojOkvir";
 
 const PocetniEkran = (props) => {
     const [unos, postaviUnos] = useState('')
@@ -11,7 +12,12 @@ const PocetniEkran = (props) => {
     let prikazBroja;
 
     if(odabir) {
-        prikazBroja = <Kartica><Text>Odabrni broj: {odabraniBroj}</Text></Kartica>
+        prikazBroja = (
+            <Kartica stil={stil.karticaBroj}>
+                <Text>Odabrani broj: </Text>
+                <BrojOkvir>{odabraniBroj}</BrojOkvir>
+                <Button title="Pocetak igre" onPress={() => {props.pocetak(odabraniBroj)}} />
+            </Kartica>)
     }
     const resetPoljeUnos = () => {
         postaviUnos('');
@@ -21,6 +27,11 @@ const PocetniEkran = (props) => {
     const prihvatiOdabir = () => {
         const broj = parseInt(unos);
         if(isNaN(broj) || broj <= 0 || broj > 99){
+            Alert.alert(
+                'Neispravan unos!',
+                'Unesite broj u rasponu od 1-99',
+                [{text: 'U redu', style: 'default', onPress: resetPoljeUnos}]
+            )
             return;
         }
         postaviOdabir(true)
@@ -42,7 +53,7 @@ const PocetniEkran = (props) => {
                     blurOnSumbit 
                     keyboardType="numeric" 
                     maxLength={2} 
-                    stil={stil.unosBroja} 
+                    style={stil.unosBroja} 
                     value = {unos}
                     onChangeText={unosBrojaProvjera}
                 />
@@ -67,8 +78,11 @@ const stil = StyleSheet.create({
         fontSize: 20,
         marginVertical: 10
     },
-    unosBroja: {
-        width: 50,
+    unos: {
+        width: 300,
+        maxWidth: '80%',
+        alignItems: 'center',
+        
     },
     tipke: {
         flexDirection: "row",
@@ -76,7 +90,14 @@ const stil = StyleSheet.create({
         justifyContent: "space-between",
         paddingHorizontal: 15
     },
+    unosBroja: {
+        width: 50,
+    },
+    karticaBroj: {
+        marginTop: 50,
+        alignItems: 'center'
+    }
     
 })
 
-export default PocetniEkran
+export default PocetniEkran;
